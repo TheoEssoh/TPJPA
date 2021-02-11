@@ -7,8 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import test.testjpa.domain.Employee;
-import test.testjpa.domain.Department;
+import jpa.business.KanbanBoard;
+import jpa.business.Step;
+import jpa.business.User;
 
 public class JpaTest {
 
@@ -28,36 +29,38 @@ public class JpaTest {
 
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
+
 		try {
-			test.createEmployees();
+			test.createKanbanBoardStepsAndUsers();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		tx.commit();
 
-		test.listEmployees();
+		test.listSteps();
 
 		manager.close();
 		System.out.println(".. done");
 	}
 
-	private void createEmployees() {
-		int numOfEmployees = manager.createQuery("Select a From Employee a", Employee.class).getResultList().size();
-		if (numOfEmployees == 0) {
-			Department department = new Department("java");
-			manager.persist(department);
+	private void createKanbanBoardStepsAndUsers() {
+		int numOfSteps = manager.createQuery("Select s From Step as s", Step.class).getResultList().size();
+		if (numOfSteps == 0) {
+			KanbanBoard kanbanBoard = new KanbanBoard("Java",new User("ESSOH",
+					"Jean-Théodore","jean-theodore.essoh@etudiant.univ-rennes1.fr"));
+			manager.persist(kanbanBoard);
 
-			manager.persist(new Employee("Jakab Gipsz",department));
-			manager.persist(new Employee("Captain Nemo",department));
+			manager.persist(new User("Essoh ","Jean-Théodore","jean-theodore1.essoh@etudiant.univ-rennes1.fr"));
+			manager.persist(new User("Captaine ","courage", "jean-theodore2.essoh@etudiant.univ-rennes1.fr"));
 
 		}
 	}
 
-	private void listEmployees() {
-		List<Employee> resultList = manager.createQuery("Select a From Employee a", Employee.class).getResultList();
-		System.out.println("num of employess:" + resultList.size());
-		for (Employee next : resultList) {
-			System.out.println("next employee: " + next);
+	private void listSteps() {
+		List<Step> resultList = manager.createQuery("Select a From Step as a", Step.class).getResultList();
+		System.out.println("num of Steps:" + resultList.size());
+		for (Step next : resultList) {
+			System.out.println("next step: " + next);
 		}
 	}
 }

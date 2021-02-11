@@ -13,6 +13,29 @@ public class KanbanBoard implements Serializable {
     private List<Step> steps;
     private User owner;
 
+    public KanbanBoard() {
+    }
+
+
+    public KanbanBoard( String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public KanbanBoard( String name, User owner) {
+        this.id = id;
+
+        this.name = name;
+        this.owner = owner;
+    }
+
+    public KanbanBoard( String name, List<Step> steps, User owner) {
+        this.id = id;
+
+        this.name = name;
+        this.steps = steps;
+        this.owner = owner;
+    }
 
     @Id
     @GeneratedValue
@@ -42,7 +65,7 @@ public class KanbanBoard implements Serializable {
         this.steps = steps;
     }
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     public User getOwner() {
         return owner;
     }

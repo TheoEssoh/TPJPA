@@ -14,15 +14,33 @@ public class Card implements Serializable {
     private String name;
     private int durationInMinutes;
     private Date deadline;
-
-
     private User userAffected;
     //private List<HTML.Tag> tags;
     private  String location;
     private String url;
     private String note;
 
-     @Id
+    public Card() {
+    }
+
+    public Card(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Card(Long id, String name, int durationInMinutes, Date deadline, User userAffected,
+                String location, String url, String note) {
+        this.id = id;
+        this.name = name;
+        this.durationInMinutes = durationInMinutes;
+        this.deadline = deadline;
+        this.userAffected = userAffected;
+        this.location = location;
+        this.url = url;
+        this.note = note;
+    }
+
+    @Id
      @GeneratedValue
     public Long getId() {
         return id;
@@ -56,7 +74,7 @@ public class Card implements Serializable {
         this.deadline = deadline;
     }
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne
     public User getUserAffected() {
         return userAffected;
     }

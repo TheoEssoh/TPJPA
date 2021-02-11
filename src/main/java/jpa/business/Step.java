@@ -13,6 +13,25 @@ public class Step implements Serializable {
     private List<KanbanBoard> kanbanBoards;
     private List<Card> cards;
 
+    public Step() {
+    }
+
+    public Step(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Step(long id, String name, List<KanbanBoard> kanbanBoards, List<Card> cards) {
+        this.id = id;
+        this.name = name;
+        this.kanbanBoards = kanbanBoards;
+        this.cards = cards;
+    }
+
+
+
+
+
     @Id @GeneratedValue
     public long getId() {
         return id;

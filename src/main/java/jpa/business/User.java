@@ -15,6 +15,27 @@ public class User implements Serializable {
     private String email;
     private List<Card> cards;
 
+    public User() {
+    }
+
+
+
+    public User(String lastName, String firstName, String email) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+    }
+
+    public User(String lastName, String firstName, String email, List<Card> cards) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.cards = cards;
+    }
+
+
+
+
     @Id
     public String getEmail() {
         return email;
