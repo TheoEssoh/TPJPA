@@ -1,13 +1,22 @@
 package jpa.business;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "USER")
+@NamedQueries(
+        {@NamedQuery(name = "AllUsers", query = "SELECT u FROM User as u"),
+                @NamedQuery(name = "AllKanbanOwners",query = "SELECT DISTINCT k.owner FROM KanbanBoard as k"),
+                @NamedQuery(name = "AllUsersWhoHaveCardS", query = "SELECT DISTINCT c.userAffected FROM Card as c"),
+
+               // @NamedQuery(name = "UsersInStepOne", query = "SELECT DISTINCT c.userAffected FROM Card as c "),
+               // @NamedQuery(name = "AllUsersWhoHaveCardS1", query = "SELECT c.user FROM Card as c"),
+               // @NamedQuery(name = "AllUsersWhoHaveCardS2", query = "SELECT c.user FROM Card as c")
+        }
+)
 public class User implements Serializable {
 
     private String lastName;

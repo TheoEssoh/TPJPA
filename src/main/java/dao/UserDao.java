@@ -1,5 +1,6 @@
 package dao;
 
+import jpa.EntityManagerHelper;
 import jpa.business.User;
 
 import java.util.List;
@@ -10,9 +11,36 @@ public class UserDao extends AbstractJpaDao<String, User> {
         super(User.class);
     }
 
-    public List<User> getUserWithOwnShip(){
-       String query = "select distinct k.owner from KanbanBoard as k ";
-       return  this.entityManager.createQuery(query).getResultList();
-
+    public List<User> getKanbanOwners(){
+        // NamedQuery
+       return  EntityManagerHelper.getEntityManager().createNamedQuery("AllKanbanOwners", User.class)
+               .getResultList();
     }
+    // NamedQuery
+    public List<User> getAllUsers() {
+        return EntityManagerHelper.getEntityManager().createNamedQuery("AllUsers", User.class)
+                .getResultList();
+    }
+
+    public List<User> getAllUsersWhoHaveCardS() {
+        return EntityManagerHelper.getEntityManager().createNamedQuery("AllUsersWhoHaveCardS", User.class)
+                .getResultList();
+    }
+
+    public int getTotalNumberOfUsers() {
+        return EntityManagerHelper.getEntityManager().createNamedQuery("AllUsers", User.class)
+                .getResultList().size();
+    }
+
+    public List<User> getAllUsersInStepOne() {
+        return EntityManagerHelper.getEntityManager().createNamedQuery("UsersInStepOne", User.class)
+                .getResultList();
+    }
+
+
+
+
+
+
+
 }
