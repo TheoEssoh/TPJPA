@@ -6,6 +6,19 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "STEP")
+/*@NamedQueries(
+        {@NamedQuery(name = "AllSteps", query = "SELECT s FROM Step as s"),
+                @NamedQuery(name = "AllCardsByStep",query = "SELECT  s.cards FROM Step as s WHERE Step.id=Card.step"),
+                @NamedQuery(name = "AllUsersWhoHaveCardS", query = "SELECT DISTINCT c.userAffected FROM Card as c"),
+
+                @NamedQuery(name = "UsersInStepOne", query = "SELECT DISTINCT c.userAffected FROM Card as c WHERE c.step ='en attente'  "),
+                @NamedQuery(name = "UsersInStepTwo", query = "SELECT DISTINCT c.userAffected FROM Card as c WHERE c.step ='en cours'  "),
+                @NamedQuery(name = "UsersInStepThree", query = "SELECT DISTINCT c.userAffected FROM Card as c WHERE c.step ='réalisé'  "),
+                // @NamedQuery(name = "AllUsersWhoHaveCardS1", query = "SELECT c.user FROM Card as c"),
+                // @NamedQuery(name = "AllUsersWhoHaveCardS2", query = "SELECT c.user FROM Card as c")
+        }
+)*/
 public class Step implements Serializable {
 
     private long id;
@@ -57,7 +70,7 @@ public class Step implements Serializable {
         this.kanbanBoards = kanbanBoards;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy = "step")
     public List<Card> getCards() {
         return cards;
     }

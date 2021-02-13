@@ -11,6 +11,7 @@ public class UserDao extends AbstractJpaDao<String, User> {
         super(User.class);
     }
 
+
     public List<User> getKanbanOwners(){
         // NamedQuery
        return  EntityManagerHelper.getEntityManager().createNamedQuery("AllKanbanOwners", User.class)
@@ -36,6 +37,17 @@ public class UserDao extends AbstractJpaDao<String, User> {
         return EntityManagerHelper.getEntityManager().createNamedQuery("UsersInStepOne", User.class)
                 .getResultList();
     }
+
+    public List<User> getAllUsersInStepTwo() {
+        return EntityManagerHelper.getEntityManager().createNamedQuery("UsersInStepTwo", User.class)
+                .getResultList();
+    }
+
+    public List<User> getAllUsersInStepThree() {
+        return EntityManagerHelper.getEntityManager().createNamedQuery("UsersInStepThree", User.class)
+                .getResultList();
+    }
+
 
 
 

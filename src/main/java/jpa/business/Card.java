@@ -15,6 +15,7 @@ public class Card implements Serializable {
     private int durationInMinutes;
     private Date deadline;
     private User userAffected;
+    private Step step ;
     //private List<HTML.Tag> tags;
     private  String location;
     private String url;
@@ -29,7 +30,7 @@ public class Card implements Serializable {
     }
 
     public Card(Long id, String name, int durationInMinutes, Date deadline, User userAffected,
-                String location, String url, String note) {
+                String location, String url, String note, Step step) {
         this.id = id;
         this.name = name;
         this.durationInMinutes = durationInMinutes;
@@ -38,6 +39,7 @@ public class Card implements Serializable {
         this.location = location;
         this.url = url;
         this.note = note;
+        this.step = step;
     }
 
     @Id
@@ -82,7 +84,15 @@ public class Card implements Serializable {
     public void setUserAffected(User userAffected) {
         this.userAffected = userAffected;
     }
-/*
+    @ManyToOne
+    public Step getStep() {
+        return step;
+    }
+
+    public void setStep(Step step) {
+        this.step = step;
+    }
+    /*
 
     public List<HTML.Tag> getTags() {
         return tags;
@@ -122,15 +132,12 @@ public class Card implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Card)) return false;
         Card card = (Card) o;
-        return getDurationInMinutes() == card.getDurationInMinutes() && getId().equals(card.getId())
-                && getName().equals(card.getName()) && getDeadline().equals(card.getDeadline()) &&
-                getUserAffected().equals(card.getUserAffected())  && getLocation().equals(card.getLocation())
-                && getUrl().equals(card.getUrl()) && getNote().equals(card.getNote()); //&& getTags().equals(card.getTags())
+        return getDurationInMinutes() == card.getDurationInMinutes() && getId().equals(card.getId()) && getName().equals(card.getName()) && getDeadline().equals(card.getDeadline()) && getUserAffected().equals(card.getUserAffected()) && getStep().equals(card.getStep()) && getLocation().equals(card.getLocation()) && getUrl().equals(card.getUrl()) && getNote().equals(card.getNote());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDurationInMinutes(), getDeadline(), getUserAffected(), getLocation(), getUrl(), getNote()); //getTags()
+        return Objects.hash(getId(), getName(), getDurationInMinutes(), getDeadline(), getUserAffected(), getStep(), getLocation(), getUrl(), getNote());
     }
 
     @Override
@@ -141,7 +148,7 @@ public class Card implements Serializable {
                 ", durationInMinutes=" + durationInMinutes +
                 ", deadline=" + deadline +
                 ", userAffected=" + userAffected +
-               // ", tags=" + tags +
+                ", step=" + step +
                 ", location='" + location + '\'' +
                 ", url='" + url + '\'' +
                 ", note='" + note + '\'' +

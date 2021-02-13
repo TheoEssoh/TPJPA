@@ -12,7 +12,9 @@ import java.util.Objects;
                 @NamedQuery(name = "AllKanbanOwners",query = "SELECT DISTINCT k.owner FROM KanbanBoard as k"),
                 @NamedQuery(name = "AllUsersWhoHaveCardS", query = "SELECT DISTINCT c.userAffected FROM Card as c"),
 
-               // @NamedQuery(name = "UsersInStepOne", query = "SELECT DISTINCT c.userAffected FROM Card as c "),
+                @NamedQuery(name = "UsersInStepOne", query = "SELECT DISTINCT c.userAffected FROM Card as c WHERE c.step ='en attente'  "),
+                @NamedQuery(name = "UsersInStepTwo", query = "SELECT DISTINCT c.userAffected FROM Card as c WHERE c.step ='en cours'  "),
+                @NamedQuery(name = "UsersInStepThree", query = "SELECT DISTINCT c.userAffected FROM Card as c WHERE c.step ='réalisé'  "),
                // @NamedQuery(name = "AllUsersWhoHaveCardS1", query = "SELECT c.user FROM Card as c"),
                // @NamedQuery(name = "AllUsersWhoHaveCardS2", query = "SELECT c.user FROM Card as c")
         }
