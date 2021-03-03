@@ -1,49 +1,58 @@
 package jpa.business;
 
+
 import javax.persistence.*;
-import javax.swing.text.html.HTML;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "card")
 public class Card implements Serializable {
 
     private Long id;
-    private String name;
-    private int durationInMinutes;
-    private Date deadline;
-    private User userAffected;
-    private Step step ;
-    //private List<HTML.Tag> tags;
-    private  String location;
+    private String label;
+    private Long deadline;
+    private String timeToDo;
     private String url;
     private String note;
+    private List<CardUser> cardUsers;
+    private String lieu;
+    private List<Tag> tags;
+    private Section section;
+    private boolean enabled;
+
+    public Card( String label) {
+        this.setEnabled(true);
+        this.id = getId();
+        this.label = label;
+    }
+
+    public Card( String label, List<CardUser> cardUsers) {
+        this.setEnabled(true);
+        this.id = getId();
+        this.label = label;
+        this.cardUsers = cardUsers;
+    }
+
+    public Card(String label, Long deadline, List<CardUser> cardUsers,
+                List<Tag> tags, Section section) {
+        this.setEnabled(true);
+        this.id = getId();
+        this.label = label;
+        this.deadline = deadline;
+        this.cardUsers = cardUsers;
+        this.tags = tags;
+        this.section = section;
+    }
 
     public Card() {
-    }
+        this.setEnabled(true);
 
-    public Card(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Card(Long id, String name, int durationInMinutes, Date deadline, User userAffected,
-                String location, String url, String note, Step step) {
-        this.id = id;
-        this.name = name;
-        this.durationInMinutes = durationInMinutes;
-        this.deadline = deadline;
-        this.userAffected = userAffected;
-        this.location = location;
-        this.url = url;
-        this.note = note;
-        this.step = step;
     }
 
     @Id
-     @GeneratedValue
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -52,63 +61,29 @@ public class Card implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public int getDurationInMinutes() {
-        return durationInMinutes;
-    }
-
-    public void setDurationInMinutes(int durationInMinutes) {
-        this.durationInMinutes = durationInMinutes;
-    }
-
-    public Date getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 
-    @ManyToOne
-    public User getUserAffected() {
-        return userAffected;
+
+    public String getTimeToDo() {
+        return timeToDo;
     }
 
-    public void setUserAffected(User userAffected) {
-        this.userAffected = userAffected;
-    }
-    @ManyToOne
-    public Step getStep() {
-        return step;
-    }
-
-    public void setStep(Step step) {
-        this.step = step;
-    }
-    /*
-
-    public List<HTML.Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<HTML.Tag> tags) {
-        this.tags = tags;
-    }
-*/
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+    public void setTimeToDo(String timeToDo) {
+        this.timeToDo = timeToDo;
     }
 
     public String getUrl() {
@@ -127,31 +102,81 @@ public class Card implements Serializable {
         this.note = note;
     }
 
+    @OneToMany(mappedBy ="card")
+    public List<CardUser> getCardUsers() {
+        return cardUsers;
+    }
+
+    public void setCardUsers(List<CardUser> cardUsers) {
+        this.cardUsers = cardUsers;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    @ManyToMany(mappedBy = "cards")
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    @ManyToOne
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Card)) return false;
         Card card = (Card) o;
-        return getDurationInMinutes() == card.getDurationInMinutes() && getId().equals(card.getId()) && getName().equals(card.getName()) && getDeadline().equals(card.getDeadline()) && getUserAffected().equals(card.getUserAffected()) && getStep().equals(card.getStep()) && getLocation().equals(card.getLocation()) && getUrl().equals(card.getUrl()) && getNote().equals(card.getNote());
+        return isEnabled() == card.isEnabled() && getId().equals(card.getId())
+                && getLabel().equals(card.getLabel()) && getDeadline().equals(card.getDeadline())
+                && getTimeToDo().equals(card.getTimeToDo()) && getUrl().equals(card.getUrl())
+                && getNote().equals(card.getNote()) && getCardUsers().equals(card.getCardUsers())
+                && getLieu().equals(card.getLieu()) && getTags().equals(card.getTags())
+                && getSection().equals(card.getSection());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDurationInMinutes(), getDeadline(), getUserAffected(), getStep(), getLocation(), getUrl(), getNote());
+        return Objects.hash(getId(), getLabel(), getDeadline(), getTimeToDo(), getUrl(),
+                getNote(), getCardUsers(), getLieu(), getTags(), getSection(), isEnabled());
     }
 
     @Override
     public String toString() {
         return "Card{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", durationInMinutes=" + durationInMinutes +
+                ", label='" + label + '\'' +
                 ", deadline=" + deadline +
-                ", userAffected=" + userAffected +
-                ", step=" + step +
-                ", location='" + location + '\'' +
+                ", timeToDo='" + timeToDo + '\'' +
                 ", url='" + url + '\'' +
                 ", note='" + note + '\'' +
+                ", lieu='" + lieu + '\'' +
+                ", tags=" + tags +
+                ", enabled=" + enabled +
                 '}';
     }
 }
+

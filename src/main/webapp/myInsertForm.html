@@ -1,10 +1,37 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert user here</title>
+</head>
 <body>
+<h1>Add New User</h1>
 <FORM Method="POST" Action="/Servlet_BD_Insert">
-    Name : 		<INPUT type=text size=20 name=lastname><BR>
-    Firstname : 	<INPUT type=text size=20 name=firstname><BR>
-    Email : 		<INPUT type=text size=20 name=email><BR>
-    <INPUT type=submit value=Send>
+
+    <table>
+
+        <tr><td>Name:</td><td><input type="text" size=20 name="lastname"/></td></tr>
+        <tr><td>Firstname:</td><td><input type="text" size=20 name="firstname"/></td></tr>
+        <tr><td>Email:</td><td><input type="email" size=20 name="email"/></td></tr>
+
+       <!-- <tr><td>Steps:</td><td>
+            <select name="step" style="width:150px">
+                <option>To do</option>
+                <option>Doing</option>
+                <option>Done</option>
+
+            </select>
+        </td></tr>
+-->
+
+        <tr><td colspan="2"><input type="submit" value="Save User"/></td></tr>
+
+    </table>
+
 </FORM>
+
+<br/>
+<a href="/Servlet_BD_Display">View users</a>
+
 </body>
 </html>

@@ -2,6 +2,7 @@ package jpa.business;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -10,31 +11,21 @@ public class KanbanBoard implements Serializable {
 
     private Long id;
     private String name;
-    private List<Step> steps;
-    private User owner;
-
-    public KanbanBoard() {
-    }
-
+    private List<Section> sections;
 
     public KanbanBoard( String name) {
-        this.id = id;
+        this.id = getId();
         this.name = name;
     }
 
-    public KanbanBoard( String name, User owner) {
-        this.id = id;
-
+    public KanbanBoard( String name, List<Section> sections) {
+        this.id = getId();
         this.name = name;
-        this.owner = owner;
+        this.sections = sections;
     }
 
-    public KanbanBoard( String name, List<Step> steps, User owner) {
-        this.id = id;
+    public KanbanBoard() {
 
-        this.name = name;
-        this.steps = steps;
-        this.owner = owner;
     }
 
     @Id
@@ -55,23 +46,13 @@ public class KanbanBoard implements Serializable {
         this.name = name;
     }
 
-    @OneToMany
-    @JoinColumn(name = "KanbanId")
-    public List<Step> getSteps() {
-        return steps;
+    @OneToMany(mappedBy ="kanbanBoard")
+    public List<Section> getSections() {
+        return sections;
     }
 
-    public void setSteps(List<Step> steps) {
-        this.steps = steps;
-    }
-
-    @ManyToOne (cascade = CascadeType.ALL)
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 
     @Override
@@ -79,12 +60,12 @@ public class KanbanBoard implements Serializable {
         if (this == o) return true;
         if (!(o instanceof KanbanBoard)) return false;
         KanbanBoard that = (KanbanBoard) o;
-        return getId().equals(that.getId()) && getName().equals(that.getName()) && getSteps().equals(that.getSteps()) && getOwner().equals(that.getOwner());
+        return getId().equals(that.getId()) && getName().equals(that.getName()) && getSections().equals(that.getSections());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getSteps(), getOwner());
+        return Objects.hash(getId(), getName(), getSections());
     }
 
     @Override
@@ -92,8 +73,6 @@ public class KanbanBoard implements Serializable {
         return "KanbanBoard{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", steps=" + steps +
-                ", owner=" + owner +
                 '}';
     }
 }

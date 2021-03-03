@@ -1,5 +1,8 @@
 package jpa;
 
+import java.security.Timestamp;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,59 +10,70 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import jpa.business.KanbanBoard;
-import jpa.business.Step;
-import jpa.business.User;
+import jpa.business.*;
 
 public class JpaTest {
 
-	private EntityManager manager;
+	private EntityManager em;
 
-	public JpaTest(EntityManager manager) {
-		this.manager = manager;
+	public JpaTest(EntityManager em) {
+		this.em = em;
 	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		EntityManagerFactory factory =
-				Persistence.createEntityManagerFactory("mysql");
-		EntityManager manager = factory.createEntityManager();
-		JpaTest test = new JpaTest(manager);
+		EntityManagerFactory emf= Persistence.createEntityManagerFactory("mysql");
+		EntityManager em = emf.createEntityManager();
+		JpaTest test = new JpaTest(em);
 
-		EntityTransaction tx = manager.getTransaction();
+		EntityTransaction tx = em.getTransaction();
+
 		tx.begin();
 
 		try {
-			test.createKanbanBoardStepsAndUsers();
+			test.createKanbanBoard();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		tx.commit();
 
-		test.listSteps();
+		test.listOfUsers();
 
-		manager.close();
+		em.close();
 		System.out.println(".. done");
+		emf.close();
 	}
 
-	private void createKanbanBoardStepsAndUsers() {
-		int numOfSteps = manager.createQuery("Select s From Step as s", Step.class).getResultList().size();
-		if (numOfSteps == 0) {
-			KanbanBoard kanbanBoard = new KanbanBoard("Java",new User("ESSOH",
-					"Jean-Théodore","jean-theodore.essoh@etudiant.univ-rennes1.fr"));
-			manager.persist(kanbanBoard);
+	private void createKanbanBoard() {
+		int cardCmpt = em.createQuery("Select k From KanbanBoard as k", KanbanBoard.class).getResultList().size();
+		if (cardCmpt == 0) {
+			KanbanBoard kanbanBoard = new KanbanBoard("JavaApi");
+			em.persist(kanbanBoard);
 
-			manager.persist(new User("Essoh ","Jean-Théodore","jean-theodore1.essoh@etudiant.univ-rennes1.fr"));
-			manager.persist(new User("Captaine ","courage", "jean-theodore2.essoh@etudiant.univ-rennes1.fr"));
+			em.persist(new User("Essoh","jean.essoh@etudiant.univ-rennes1.fr "));
+			em.persist(new User("Captaine", "capitaine@gmail.com"));
+			/*em.persist(new User("Captaine", "capitaine@gmail.com"));*/
+
+			em.persist(new Tag("Index 1"));
+			em.persist(new Tag("Index 2"));
+
+			em.persist(new Section("To do"));
+			em.persist(new Section("Doing"));
+			em.persist(new Section("Done"));
+
+			em.persist(new CardUser(new Date(),new Date()));
+
+			em.persist( new Card("Ajout kanban"));
+			
 
 		}
 	}
 
-	private void listSteps() {
-		List<Step> resultList = manager.createQuery("Select a From Step as a", Step.class).getResultList();
-		System.out.println("num of Steps:" + resultList.size());
-		for (Step next : resultList) {
+	private void listOfUsers() {
+		List<User> resultList = em.createQuery("Select u From user as u", User.class).getResultList();
+		System.out.println("The number of users is:" + resultList.size());
+		for (User next : resultList) {
 			System.out.println("next step: " + next);
 		}
 	}

@@ -1,38 +1,42 @@
 package dao;
 
+import dao.generic.AbstractJpaDao;
+import dao.generic.*;
 import jpa.EntityManagerHelper;
 import jpa.business.User;
 
 import java.util.List;
 
-public class UserDao extends AbstractJpaDao<String, User> {
+public class UserDaoImpl extends AbstractJpaDao<Long, User> implements IUserDao {
 
-    public UserDao() {
+    public UserDaoImpl() {
         super(User.class);
     }
 
 
+
     public List<User> getKanbanOwners(){
         // NamedQuery
-       return  EntityManagerHelper.getEntityManager().createNamedQuery("AllKanbanOwners", User.class)
+       return  EntityManagerHelper.getEntityManager().createNamedQuery("All Kanban Owners", User.class)
                .getResultList();
     }
     // NamedQuery
     public List<User> getAllUsers() {
-        return EntityManagerHelper.getEntityManager().createNamedQuery("AllUsers", User.class)
+        return EntityManagerHelper.getEntityManager().createNamedQuery("All Users", User.class)
                 .getResultList();
     }
 
-    public List<User> getAllUsersWhoHaveCardS() {
-        return EntityManagerHelper.getEntityManager().createNamedQuery("AllUsersWhoHaveCardS", User.class)
+    public List<User> getAllCardsUsers(){
+        return EntityManagerHelper.getEntityManager().createNamedQuery("All Users Who Have CardS", User.class)
                 .getResultList();
     }
 
     public int getTotalNumberOfUsers() {
-        return EntityManagerHelper.getEntityManager().createNamedQuery("AllUsers", User.class)
+        return EntityManagerHelper.getEntityManager().createNamedQuery("All Users", User.class)
                 .getResultList().size();
     }
 
+/*
     public List<User> getAllUsersInStepOne() {
         return EntityManagerHelper.getEntityManager().createNamedQuery("UsersInStepOne", User.class)
                 .getResultList();
@@ -46,7 +50,7 @@ public class UserDao extends AbstractJpaDao<String, User> {
     public List<User> getAllUsersInStepThree() {
         return EntityManagerHelper.getEntityManager().createNamedQuery("UsersInStepThree", User.class)
                 .getResultList();
-    }
+    }*/
 
 
 

@@ -37,6 +37,10 @@ public class Servlet_BD_Insert extends HttpServlet {
     final String USER = "root";
     final String PASS = "";
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
+    }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -66,9 +70,7 @@ public class Servlet_BD_Insert extends HttpServlet {
                 "<h1 align=\"center\">" + title + " </h1>\n"
         + "<h3>Voir l'insertion: http://localhost:8080/Servlet_BD_Display</h3>");
 
-        addUser(new User(request.getParameter("lastname"),
-                request.getParameter("firstname"),
-                request.getParameter("email")));
+        addUser(new User(request.getParameter("lastname"),request.getParameter("email")));
     }
 
     public void addUser(User user) {
@@ -80,8 +82,8 @@ public class Servlet_BD_Insert extends HttpServlet {
             String sql2 = "INSERT INTO user (lastName, firstName, email) VALUES (?,?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql2);
 
-            preparedStatement.setString(1, user.getLastName());
-            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(1, user.getName());
+
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
