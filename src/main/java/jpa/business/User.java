@@ -12,9 +12,10 @@ import java.util.Objects;
                 @UniqueConstraint(name="email", columnNames={"email"})
         })
 @NamedQueries(
-        {@NamedQuery(name = "All Users", query = "SELECT u FROM user as u"),
-              /*  @NamedQuery(name = "All Kanban Owners",query = "SELECT DISTINCT k.owner FROM KanbanBoard as k"),*/
-                @NamedQuery(name = "All Users Who Have CardS", query = "SELECT DISTINCT c.cardUsers FROM card as c"),
+        {
+                //@NamedQuery(name = "get user by email", query = "SELECT u FROM user as u WHERE u.email = : email"),
+                @NamedQuery(name = "All Users",query = "SELECT  u FROM user as u"),
+                @NamedQuery(name = "Find user name", query = "SELECT u.name FROM user  u "),
 
                // @NamedQuery(name = "UsersInStepOne", query = "SELECT DISTINCT c.userAffected FROM Card as c WHERE c.step ='To do'  "),
                // @NamedQuery(name = "UsersInStepTwo", query = "SELECT DISTINCT c.userAffected FROM Card as c WHERE c.step ='Doing'  "),
