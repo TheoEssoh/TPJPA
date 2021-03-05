@@ -2,7 +2,7 @@ package jpa;
 
 import java.security.Timestamp;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -62,9 +62,10 @@ public class JpaTest {
 			em.persist(new Section("Doing"));
 			em.persist(new Section("Done"));
 
-			em.persist(new CardUser(new Date(),new Date()));
+			em.persist(new CardUser(new Date(new java.util.Date().getTime()),new Date(new java.util.Date().getTime())));
 
 			em.persist( new Card("Ajout kanban"));
+			System.out.println(new Date(new java.util.Date().getTime()));
 			
 
 		}

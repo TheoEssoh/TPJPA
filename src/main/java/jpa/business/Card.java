@@ -12,12 +12,12 @@ public class Card implements Serializable {
 
     private Long id;
     private String label;
-    private Long deadline;
-    private String timeToDo;
+    private Date deadline;
+    private Date timeToDo;
     private String url;
     private String note;
     private List<CardUser> cardUsers;
-    private String lieu;
+    private String location;
     private List<Tag> tags;
     private Section section;
     private boolean enabled;
@@ -35,7 +35,19 @@ public class Card implements Serializable {
         this.cardUsers = cardUsers;
     }
 
-    public Card(String label, Long deadline, List<CardUser> cardUsers,
+    public Card( String label, Date deadline, Date timeToDo, String url,
+                String note, String location) {
+        this.id = getId();
+        this.label = label;
+        this.deadline = deadline;
+        this.timeToDo = timeToDo;
+        this.url = url;
+        this.note = note;
+        this.location = location;
+        this.setEnabled(true);
+    }
+
+    public Card(String label, Date deadline, List<CardUser> cardUsers,
                 List<Tag> tags, Section section) {
         this.setEnabled(true);
         this.id = getId();
@@ -69,20 +81,20 @@ public class Card implements Serializable {
         this.label = label;
     }
 
-    public Long getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Long deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
 
-    public String getTimeToDo() {
+    public Date getTimeToDo() {
         return timeToDo;
     }
 
-    public void setTimeToDo(String timeToDo) {
+    public void setTimeToDo(Date timeToDo) {
         this.timeToDo = timeToDo;
     }
 
@@ -111,12 +123,12 @@ public class Card implements Serializable {
         this.cardUsers = cardUsers;
     }
 
-    public String getLieu() {
-        return lieu;
+    public String getLocation() {
+        return location;
     }
 
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
+    public void setLocation(String lieu) {
+        this.location = lieu;
     }
 
     @ManyToMany(mappedBy = "cards")
@@ -154,14 +166,14 @@ public class Card implements Serializable {
                 && getLabel().equals(card.getLabel()) && getDeadline().equals(card.getDeadline())
                 && getTimeToDo().equals(card.getTimeToDo()) && getUrl().equals(card.getUrl())
                 && getNote().equals(card.getNote()) && getCardUsers().equals(card.getCardUsers())
-                && getLieu().equals(card.getLieu()) && getTags().equals(card.getTags())
+                && getLocation().equals(card.getLocation()) && getTags().equals(card.getTags())
                 && getSection().equals(card.getSection());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getLabel(), getDeadline(), getTimeToDo(), getUrl(),
-                getNote(), getCardUsers(), getLieu(), getTags(), getSection(), isEnabled());
+                getNote(), getCardUsers(), getLocation(), getTags(), getSection(), isEnabled());
     }
 
     @Override
@@ -173,7 +185,7 @@ public class Card implements Serializable {
                 ", timeToDo='" + timeToDo + '\'' +
                 ", url='" + url + '\'' +
                 ", note='" + note + '\'' +
-                ", lieu='" + lieu + '\'' +
+                ", lieu='" + location + '\'' +
                 ", tags=" + tags +
                 ", enabled=" + enabled +
                 '}';

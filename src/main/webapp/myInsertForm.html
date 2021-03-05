@@ -5,24 +5,34 @@
     <title>Insert user here</title>
 </head>
 <body>
-<h1>Add New User</h1>
+<h1>Add kanban board</h1>
 <FORM Method="POST" Action="/Servlet_BD_Insert">
 
     <table>
+        <tr><td>Kanban board name:</td><td><input type="text" size=20 name="kanbanBoardName"/></td></tr>
 
-        <tr><td>Name:</td><td><input type="text" size=20 name="lastname"/></td></tr>
-        <tr><td>Firstname:</td><td><input type="text" size=20 name="firstname"/></td></tr>
+        <tr><td>Section label:</td><td><input type="text" size=20 name="sectionLabel"/></td></tr>
+
+        <tr><td>Card label:</td><td><input type="text" size=20 name="cardLabel"/></td></tr>
+        <tr><td>Card deadline:</td><td><input type="date" size=20 name="deadline"/></td></tr>
+        <tr><td>Card timeToDo:</td><td><input type="date" size=20 name="timeToDo"/></td></tr>
+        <tr><td>Card url:</td><td><input type="text" size=20 name="url"/></td></tr>
+        <tr><td>Card note:</td><td><input type="text" size=20 name="note"/></td></tr>
+        <tr><td>Card location:</td><td><input type="text" size=20 name="location"/></td></tr>
+
+        <tr><td>Tag level:</td><td><input type="text" size=20 name="level"/></td></tr>
+        <tr><td>Tag AvailabilityLevel:</td><td><input type="text" size=20 name="AvailabilityLevel"/></td></tr>
+        <tr><td>Tag label:</td><td><input type="text" size=20 name="Taglabel"/></td></tr>
+        <tr><td>Tag Boards:</td><td><input type="text" size=20 name="Boards"/></td></tr>
+
+        <tr><td>attribution date:</td><td><input type="date" size=20 name="attributionDate"/></td></tr>
+        <tr><td>withdrawal date:</td><td><input type="date" size=20 name="withdrawalDate"/></td></tr>
+        <tr><td>begin date:</td><td><input type="date" size=20 name="beginDate"/></td></tr>
+        <tr><td>End date:</td><td><input type="date" size=20 name="endDate"/></td></tr>
+
+        <tr><td>User name:</td><td><input type="text" size=20 name="userName"/></td></tr>
         <tr><td>Email:</td><td><input type="email" size=20 name="email"/></td></tr>
 
-       <!-- <tr><td>Steps:</td><td>
-            <select name="step" style="width:150px">
-                <option>To do</option>
-                <option>Doing</option>
-                <option>Done</option>
-
-            </select>
-        </td></tr>
--->
 
         <tr><td colspan="2"><input type="submit" value="Save User"/></td></tr>
 
@@ -31,7 +41,7 @@
 </FORM>
 
 <br/>
-<a href="/Servlet_BD_Display">View users</a>
+<a href="/Servlet_BD_Display">View kanban board details in the BD</a>
 
 </body>
 </html>

@@ -32,7 +32,8 @@ public class Servlet_BD_Display extends HttpServlet {
     Statement statement = null;
     // results
     ResultSet result = null;
-   /* public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
 
@@ -56,11 +57,11 @@ public class Servlet_BD_Display extends HttpServlet {
                 "<head><title>" + title + " </title></head>\n" +
                 "<body bgcolor=\"#f0f0f0\">\n" +
                 "<h1 align=\"center\">" + title + " </h1>\n");
-*//*
+/*
         addUser(new User(request.getParameter("lastname"),
                 request.getParameter("firstname"),
-                request.getParameter("email")));*//*
-    }*/
+                request.getParameter("email")));*/
+    }
 
 
 

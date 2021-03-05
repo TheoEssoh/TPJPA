@@ -13,13 +13,13 @@ public class KanbanBoard implements Serializable {
     private String name;
     private List<Section> sections;
 
-    public KanbanBoard( String name) {
-        this.id = getId();
+    public KanbanBoard(String name) {
+        //this.id = this.getId();
         this.name = name;
     }
 
     public KanbanBoard( String name, List<Section> sections) {
-        this.id = getId();
+        //this.id = getId();
         this.name = name;
         this.sections = sections;
     }
