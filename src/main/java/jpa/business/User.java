@@ -52,7 +52,7 @@ public class User implements Serializable {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getIdUser() {
         return idUser;
     }

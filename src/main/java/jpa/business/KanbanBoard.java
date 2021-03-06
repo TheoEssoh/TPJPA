@@ -14,22 +14,26 @@ public class KanbanBoard implements Serializable {
     private List<Section> sections;
 
     public KanbanBoard(String name) {
-        //this.id = this.getId();
+        //this.id = getId();
+        //this.id=id;
         this.name = name;
     }
 
     public KanbanBoard( String name, List<Section> sections) {
         //this.id = getId();
+        //this.id=id;
         this.name = name;
         this.sections = sections;
     }
 
     public KanbanBoard() {
+       // this.id=id;
+       // this.id=getId();
 
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
