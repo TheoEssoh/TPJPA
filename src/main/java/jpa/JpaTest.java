@@ -46,7 +46,7 @@ public class JpaTest {
 	}
 
 	private void createKanbanBoard() {
-		int cardCmpt = em.createQuery("Select k From KanbanBoard as k", KanbanBoard.class).getResultList().size();
+		int cardCmpt = em.createQuery("Select k From kanbanBoard as k", KanbanBoard.class).getResultList().size();
 		if (cardCmpt == 0) {
 			KanbanBoard kanbanBoard = new KanbanBoard("JavaApi");
 			em.persist(kanbanBoard);

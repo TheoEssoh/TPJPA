@@ -25,17 +25,12 @@ import java.util.Locale;
         urlPatterns={"/Servlet_BD_Insert"})
 public class Servlet_BD_Insert extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-
-
     //connexion à la base de données
     Connection connection = null;
     // Execute SQL query
     Statement statement = null;
     // results
     ResultSet result = null;
-
-
     final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     final String DB_URL = "jdbc:mysql://localhost/mydatabase?serverTimezone=UTC";
     final String USER = "root";
@@ -43,63 +38,67 @@ public class Servlet_BD_Insert extends HttpServlet {
     private Date sqlDate= null ;
     final String formatDate = "yyyy-MM-dd";
 
+
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+        // Set response content type
         response.setContentType("text/html");
-
         PrintWriter out = response.getWriter();
-
-        out.println("<HTML>\n<BODY>\n" +
-                "<H1>Recapitulatif des informations</H1>\n" +
-                "<UL>\n" +
-                " <LI>LastName: "
-                + request.getParameter("lastname") + "\n" +
-                " <LI>FirstName: "
-                + request.getParameter("firstname") + "\n" +
-                " <LI>Email: "
-                + request.getParameter("email") + "\n" +
-                "</UL>\n" +
-                "</BODY></HTML>");
-        System.out.println(request.getParameter("deadline"));
         String title = "Database Results";
 
         out.println("<html>\n" +
                 "<head><title>" + title + " </title></head>\n" +
                 "<body bgcolor=\"#f0f0f0\">\n" +
-                "<h1 align=\"center\">" + title + " </h1>\n"
-        + "<h3>Voir l'insertion: http://localhost:8080/Servlet_BD_Display</h3>");
+                "<h1 align=\"center\">" + title + " </h1>\n");
+        try{
+
+            loadDataBase();
+            // Execute SQL query
+            Statement stmt = connection.createStatement();
+            String sql;
+            //sql = "SELECT id, first, last, age FROM Employees";
+            sql = "SELECT name,email FROM user";
+            ResultSet rs = stmt.executeQuery(sql);
+            // Extract data from result set
+            while(rs.next()){
+                //Retrieve by column name
+                String email = rs.getString("email");
+                String name = rs.getString("name");
+                // String lastName = rs.getString("lastName");
+                //Display values
+                out.println(" Email:  " + email );
+                out.println(", FirstName:  " + name );
+                // out.println(", LastName:  " + lastName + "<br>");
+            }
+            out.println("</body></html>");
+            // Clean-up environment
+            rs.close();
+            stmt.close();
+            connection.close();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         KanbanBoard kanban = new KanbanBoard();
         kanban.setName(request.getParameter("kanbanBoardName"));
         //System.out.println("Le kanban est : "+kanban);
         addKanbanBoard(kanban);
 
-
         addSection(new Section(request.getParameter("sectionLabel")));
-
-
-         /* final String formatDate = "yyyy-MM-dd";
-        String date = request.getParameter("deadline");
-
-        SimpleDateFormat format = new SimpleDateFormat(formatDate);
-
-        try {
-            java.util.Date dat = format.parse(date);
-            java.sql.Date sqlDate = new java.sql.Date(dat.getTime());
-            System.out.println(sqlDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-        dateParser(request.getParameter("deadline"));
-        System.out.println("La date est :" + sqlDate);
-
-
 
         addCard( new Card(request.getParameter("cardLabel"),dateParser(request.getParameter("deadline")),
                 dateParser(request.getParameter("timeToDo")),"url","note","location"));

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "kanbanBoard")
 public class KanbanBoard implements Serializable {
 
     private Long id;
