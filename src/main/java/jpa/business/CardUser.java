@@ -47,6 +47,10 @@ public class CardUser implements Serializable {
     }
 
     public Date getAttributionDate() {
+        if (attributionDate == null){
+
+            return new Date(new java.util.Date().getTime());
+        }
         return attributionDate;
     }
 
@@ -55,6 +59,10 @@ public class CardUser implements Serializable {
     }
 
     public Date getWithdrawalDate() {
+        if (withdrawalDate == null){
+
+            return new Date(new java.util.Date().getTime());
+        }
         return withdrawalDate;
     }
 
@@ -63,6 +71,10 @@ public class CardUser implements Serializable {
     }
 
     public Date getBeginDate() {
+        if (beginDate == null){
+
+            return new Date(new java.util.Date().getTime());
+        }
         return beginDate;
     }
 
@@ -71,6 +83,10 @@ public class CardUser implements Serializable {
     }
 
     public Date getEndDate() {
+        if (endDate == null){
+
+            return new Date(new java.util.Date().getTime());
+        }
         return endDate;
     }
 

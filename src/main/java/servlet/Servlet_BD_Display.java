@@ -153,11 +153,11 @@ public class Servlet_BD_Display extends HttpServlet {
             out.println("</body></html>");
             // Clean-up environment
             rs.close();
-            /*rsK.close();
+            rsK.close();
             rsS.close();
             rsT.close();
             rsC.close();
-            rsCU.close();*/
+            rsCU.close();
             stmt.close();
             connection.close();
         }catch(SQLException se){

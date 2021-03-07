@@ -46,7 +46,7 @@ public class Servlet_BD_Insert extends HttpServlet {
         // Set response content type
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        String title = "Database Results";
+        String title = "http://localhost:8080/Servlet_BD_Display";
 
         out.println("<html>\n" +
                 "<head><title>" + title + " </title></head>\n" +
@@ -125,6 +125,7 @@ public class Servlet_BD_Insert extends HttpServlet {
 
 
             //preparedStatement.setLong(1, user.getIdUser());
+
             preparedStatement.setString(1, user.getName());
             preparedStatement.setBoolean(2, true);
             preparedStatement.setString(3, user.getEmail());
@@ -184,6 +185,7 @@ public class Servlet_BD_Insert extends HttpServlet {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            //System.out.println("Entrez les dates");
         }
     }
 
@@ -242,14 +244,25 @@ public class Servlet_BD_Insert extends HttpServlet {
 
         //String date = request.getParameter("s");
 
-        SimpleDateFormat format = new SimpleDateFormat(formatDate);
 
-        try {
-            java.util.Date dat = format.parse(sql);
-            sqlDate = new java.sql.Date(dat.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+        if (sql.equals("")){
+            sqlDate = new Date(new java.util.Date().getTime());
+        }else{
+
+            SimpleDateFormat format = new SimpleDateFormat(formatDate);
+            try {
+
+                java.util.Date dat = format.parse(sql);
+                sqlDate = new java.sql.Date(dat.getTime());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
         }
+
+
         return sqlDate;
     }
 }

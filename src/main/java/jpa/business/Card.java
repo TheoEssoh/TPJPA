@@ -13,8 +13,8 @@ public class Card implements Serializable {
 
     private Long id;
     private String label;
-    private Date deadline;
-    private Date timeToDo;
+    private Date deadline = null;
+    private Date timeToDo = null;
     private String url;
     private String note;
     private List<CardUser> cardUsers;
@@ -27,6 +27,7 @@ public class Card implements Serializable {
         this.setEnabled(true);
         this.id = getId();
         this.label = label;
+
     }
 
     public Card( String label, List<CardUser> cardUsers) {
@@ -83,6 +84,11 @@ public class Card implements Serializable {
     }
 
     public Date getDeadline() {
+        if (deadline == null){
+
+            return new Date(new java.util.Date().getTime());
+        }
+
         return deadline;
     }
 
@@ -92,6 +98,10 @@ public class Card implements Serializable {
 
 
     public Date getTimeToDo() {
+        if (deadline == null){
+
+            return new Date(new java.util.Date().getTime());
+        }
         return timeToDo;
     }
 
