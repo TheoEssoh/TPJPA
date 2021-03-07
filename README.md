@@ -1,3 +1,6 @@
+Jean-Théodore ESSOH Sylvanus KONAN
+TP premiere partie du backend.
+
 - commencer le projet par créer le nom (mydatabase) de la base de donnée dans votre serveur de base de données,
   ensuite pour se connecter à la base de données il comme mot de pass: "" et comme root :root.
   vous pouvez le modifier dans persistence.xml. il s'agit d'une BD mysql.
