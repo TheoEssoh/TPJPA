@@ -25,7 +25,7 @@ public interface ICardDao {
      * @param card which will be move
      * @return true on success, false otherwise
      */
-    boolean move(Card card);
+   // boolean move(Card card);
 
 
     /**
@@ -39,7 +39,7 @@ public interface ICardDao {
      * get the number of cards
      * @return int number of cards
      */
-    int getTotalNumberOfCardsBySection() ;
+    int getTotalNumberOfCardsBySection(Section section) ;
 
     /**
      * get the label of card

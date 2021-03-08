@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity (name = "cardUser")
 public class CardUser implements Serializable {
     private Long id;
     private Date attributionDate ;

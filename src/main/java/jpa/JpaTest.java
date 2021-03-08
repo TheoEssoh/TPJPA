@@ -39,7 +39,6 @@ public class JpaTest {
 		tx.commit();
 
 		test.listOfUsers();
-
 		em.close();
 		System.out.println(".. done");
 		emf.close();
